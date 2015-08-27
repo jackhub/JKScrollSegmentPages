@@ -12,11 +12,13 @@
 
 @interface JKSegementScrollPageView : UIView
 
+//set all pages at one time
 @property (nonatomic, strong) NSArray *pages;
+//set all titles at one time
 @property (nonatomic, strong) NSArray *titles;
 
 //set normal status title color: white or black.
-@property (nonatomic, assign) JKTilteNormalStyle normalTitleColor;
+@property (nonatomic, assign) JKTilteNormalStyle tilteNormalStyle;
 //set title color when seleted.
 @property (nonatomic, strong) UIColor *seletedTitleColor;
 //whether show indicator blow seleted title.
@@ -28,5 +30,8 @@
 
 @property (nonatomic, strong) JKSegmentView *segmentView;
 @property (nonatomic, strong) JKScrollPageView *scrollPageView;
+
+//delay init, set view for current page, put it in pageChanged block.
+- (void)addViewToCurrentPage:(UIView *)view;
 
 @end

@@ -41,6 +41,14 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
         button.tag=100+i;
         [button setTitle:title forState:UIControlStateNormal];
         button.titleLabel.font=[UIFont systemFontOfSize:kTitleFontSize];
+        button.tilteNormalStyle=self.tilteNormalStyle;
+
+        if (self.tilteNormalStyle==JKTilteNormalStyleDark) {
+            [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        } else {
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
+        
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchDown];
         [button sizeToFit];
         

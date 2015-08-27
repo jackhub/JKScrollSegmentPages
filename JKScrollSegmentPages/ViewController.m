@@ -54,7 +54,7 @@
     _segmentScrollPageView.showIndicator=YES;
     _segmentScrollPageView.seletedTitleColor=[UIColor purpleColor];
     _segmentScrollPageView.segmentView.backgroundColor=[UIColor whiteColor];
-    _segmentScrollPageView.normalTitleColor=JKTilteNormalStyleDark;
+    _segmentScrollPageView.tilteNormalStyle=JKTilteNormalStyleDark;
     _segmentScrollPageView.currentIndex=0;
 
 }

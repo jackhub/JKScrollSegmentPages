@@ -41,8 +41,8 @@ CGFloat const kSegmentViewHeight=30;
     self.segmentView.titles=titles;
 }
 
-- (void)setNormalTitleColor:(JKTilteNormalStyle)normalTitleColor {
-    self.segmentView.tilteNormalStyle=normalTitleColor;
+- (void)setTilteNormalStyle:(JKTilteNormalStyle)tilteNormalStyle {
+    self.segmentView.tilteNormalStyle=tilteNormalStyle;
 }
 
 - (void)setSeletedTitleColor:(UIColor *)seletedTitleColor {
@@ -64,6 +64,12 @@ CGFloat const kSegmentViewHeight=30;
 - (NSUInteger)currentIndex {
     return self.scrollPageView.currentPageIndex;
 }
+
+- (void)addViewToCurrentPage:(UIView *)view {
+    view.frame=self.scrollPageView.bounds;
+    [self.scrollPageView addSubview:view];
+}
+
 
 
 @end
