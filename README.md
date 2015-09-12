@@ -2,7 +2,8 @@
 A scrollable page from left to right with a scrollable title following it.
 
 #usage
-```
+
+```Objective-C
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
