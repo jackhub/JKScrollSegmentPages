@@ -13,11 +13,13 @@
 @class JKScrollPageView;
 
 @interface JKSegmentView : UIScrollView
-@property (nonatomic, strong) NSArray *titles;
-@property (nonatomic, strong) void(^segmentChanged)(NSUInteger);
-@property (nonatomic, assign) NSUInteger seletedIndex;
-@property (nonatomic, weak) JKScrollPageView *scrollPageView;
-@property (nonatomic, assign) JKTilteNormalStyle tilteNormalStyle;
-@property (nonatomic, strong) UIColor *selectedTitleColor;
+
+@property (nonatomic, strong)   NSMutableArray                 *titles;
+@property (nonatomic, strong)   void(^segmentChanged)(NSUInteger);
+@property (nonatomic, assign)   NSUInteger              seletedIndex;
+@property (nonatomic, weak)     JKScrollPageView        *scrollPageView;
+@property (nonatomic, assign)   JKTilteNormalStyle      tilteNormalStyle;
+@property (nonatomic, strong)   UIColor                 *selectedTitleColor;
 @property (nonatomic, assign, getter=isShowIndicator) BOOL showIndicator;
+
 @end

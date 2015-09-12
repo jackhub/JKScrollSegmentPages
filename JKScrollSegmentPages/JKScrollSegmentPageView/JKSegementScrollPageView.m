@@ -17,27 +17,42 @@ CGFloat const kSegmentViewHeight=30;
 
 @synthesize currentIndex=_currentIndex;
 
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self=[super initWithFrame:frame];
+- (instancetype)init {
+    self=[super init];
     if (self) {
-        _segmentView=[[JKSegmentView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kSegmentViewHeight)];
-        _scrollPageView=[[JKScrollPageView alloc] initWithFrame:CGRectMake(0, kSegmentViewHeight, self.frame.size.width, self.frame.size.height-kSegmentViewHeight)];
-        
-        _scrollPageView.segmentView=_segmentView;
-        
-        [self addSubview:_scrollPageView];
-        [self addSubview:_segmentView];
-
+        [self setupSubViews];
     }
     return self;
 }
 
-- (void)setPages:(NSArray *)pages {
+- (instancetype)initWithFrame:(CGRect)frame {
+    self=[super initWithFrame:frame];
+    if (self) {
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _segmentView.frame=CGRectMake(0, 0, self.frame.size.width, kSegmentViewHeight);
+    _scrollPageView.frame=CGRectMake(0, kSegmentViewHeight, self.frame.size.width, self.frame.size.height-kSegmentViewHeight);
+}
+
+- (void)setupSubViews {
+    _segmentView=[[JKSegmentView alloc] init];
+    _scrollPageView=[[JKScrollPageView alloc] init];
+    _scrollPageView.segmentView=_segmentView;
+    
+    [self addSubview:_scrollPageView];
+    [self addSubview:_segmentView];
+}
+
+- (void)setPages:(NSMutableArray *)pages {
     self.scrollPageView.pages=pages;
 }
 
-- (void)setTitles:(NSArray *)titles {
+- (void)setTitles:(NSMutableArray *)titles {
     self.segmentView.titles=titles;
 }
 
@@ -66,8 +81,7 @@ CGFloat const kSegmentViewHeight=30;
 }
 
 - (void)addViewToCurrentPage:(UIView *)view {
-    view.frame=self.scrollPageView.bounds;
-    [self.scrollPageView addSubview:view];
+    [self.scrollPageView addViewToCurrentPage:view];
 }
 
 

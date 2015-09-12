@@ -18,6 +18,16 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
 
 @implementation JKSegmentView
 
+- (instancetype)init {
+    self=[super init];
+    if (self) {
+        self.showsHorizontalScrollIndicator=NO;
+        self.showsVerticalScrollIndicator=NO;
+        self.showIndicator=YES;
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self=[super initWithFrame:frame];
     if (self) {
@@ -28,7 +38,11 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
     return self;
 }
 
-- (void)setTitles:(NSArray *)titles {
+- (void)layoutSubviews {
+    
+}
+
+- (void)setTitles:(NSMutableArray *)titles {
     for (UIView *v1 in self.subviews) {
         [v1 removeFromSuperview];
     }
@@ -42,6 +56,7 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
         [button setTitle:title forState:UIControlStateNormal];
         button.titleLabel.font=[UIFont systemFontOfSize:kTitleFontSize];
         button.tilteNormalStyle=self.tilteNormalStyle;
+        button.selectedColor=self.selectedTitleColor;
 
         if (self.tilteNormalStyle==JKTilteNormalStyleDark) {
             [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -70,12 +85,12 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
     JKTitleButton *seletedButton=(JKTitleButton *)[self viewWithTag:100];
     CGSize buttonSize=seletedButton.frame.size;
     CGPoint buttonOrigin=seletedButton.frame.origin;
-    self.indictorView=[[UIView alloc] initWithFrame:CGRectMake(buttonOrigin.x, buttonSize.height-1, buttonSize.width, 1)];
-    self.indictorView.backgroundColor=kDefaultSeletedTitleColor;
+    
+    self.indictorView=[[UIView alloc] initWithFrame:CGRectMake(buttonOrigin.x, buttonSize.height-1, buttonSize.width, 2)];
+    self.indictorView.backgroundColor=(self.selectedTitleColor?self.selectedTitleColor:kDefaultSeletedTitleColor);
     [self addSubview:self.indictorView];
 
 }
-
 
 - (void)buttonClicked:(JKTitleButton *)sender {
     NSUInteger index=sender.tag-100;
@@ -95,8 +110,8 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
         self.segmentChanged(seletedIndex);
     }
     
-    
     JKTitleButton *seletedButton=(JKTitleButton *)[self viewWithTag:100+seletedIndex];
+    seletedButton.transform=CGAffineTransformIdentity;
     CGRect indictorFrmae=self.indictorView.frame;
     indictorFrmae.origin=CGPointMake(seletedButton.frame.origin.x, indictorFrmae.origin.y);
     indictorFrmae.size=CGSizeMake(seletedButton.frame.size.width,indictorFrmae.size.height);
@@ -105,7 +120,7 @@ NSUInteger const kTitleInsect=10;   //标签左右额外空隙
     }];
     
     //让标签滚动到中心。
-    if (indictorFrmae.origin.x>self.frame.size.width/2.0-indictorFrmae.size.width/2.0 && self.contentSize.width-indictorFrmae.origin.x>self.frame.size.width/2+indictorFrmae.size.width/2.0) {
+    if (indictorFrmae.origin.x>0 && indictorFrmae.origin.x>self.frame.size.width/2.0-indictorFrmae.size.width/2.0 && self.contentSize.width-indictorFrmae.origin.x>self.frame.size.width/2+indictorFrmae.size.width/2.0) {
         CGFloat scrollOffset=indictorFrmae.origin.x-(self.frame.size.width/2.0-indictorFrmae.size.width/2.0);
         [self setContentOffset:CGPointMake(scrollOffset, 0) animated:YES];
 

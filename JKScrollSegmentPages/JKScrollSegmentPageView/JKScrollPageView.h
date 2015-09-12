@@ -12,9 +12,12 @@
 @class  JKSegmentView;
 
 @interface JKScrollPageView : UIScrollView
-@property (nonatomic, strong) NSArray *pages;
-@property (nonatomic, strong) JKSegmentView *segmentView;
+
+@property (nonatomic, strong) NSMutableArray *pages;
+@property (nonatomic, weak) JKSegmentView *segmentView;
 @property (nonatomic, assign) NSUInteger currentPageIndex;
 
 - (void)setContentOffsetToIndex:(NSUInteger)index;
+- (void)addViewToCurrentPage:(UIView *)view;
+
 @end

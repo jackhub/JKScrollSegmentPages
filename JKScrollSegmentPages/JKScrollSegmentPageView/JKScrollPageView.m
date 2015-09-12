@@ -24,17 +24,25 @@
     return self;
 }
 
-- (void)setPages:(NSArray *)pages {
-    _pages=pages;
+//布局
+- (void)layoutSubviews {
     
     CGFloat totalWidth=0;
-    
+    NSArray *pages=self.pages;
+    NSInteger titleCounts=[self.segmentView.titles count];
     for (UIView *page in pages) {
         page.frame=CGRectMake(totalWidth, 0, self.frame.size.width, self.frame.size.height);
-        [self addSubview:page];
         totalWidth=totalWidth+self.frame.size.width;
     }
-    self.contentSize=CGSizeMake(totalWidth, 0);
+    self.contentSize=CGSizeMake((self.frame.size.width)*titleCounts, 0);
+}
+
+- (void)setPages:(NSMutableArray *)pages {
+    _pages=pages;
+    
+    for (UIView *page in pages) {
+        [self addSubview:page];
+    }
 }
 
 - (void)setCurrentPageIndex:(NSUInteger)currentPageIndex {
@@ -44,12 +52,19 @@
 
 - (void)setContentOffsetToIndex:(NSUInteger)index {
     self.contentOffset=CGPointMake(self.frame.size.width*index, 0);
+    _currentPageIndex=index;
 }
 
 - (void)setSegmentView:(JKSegmentView *)segmentView {
     _segmentView=segmentView;
     segmentView.scrollPageView=self;
 }
+
+- (void)addViewToCurrentPage:(UIView *)view {
+    view.frame=self.bounds;
+    [self addSubview:view];
+}
+
 
 - (void)scrollViewDidEndDecelerating:(nonnull UIScrollView *)scrollView {
     NSUInteger currentIndex=self.contentOffset.x/self.frame.size.width;
